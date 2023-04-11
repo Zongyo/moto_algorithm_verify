@@ -88,6 +88,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +146,6 @@
     <ClCompile Include="Svpwm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CFG_Driver.h" />
     <ClInclude Include="DynaSinTable.h" />
     <ClInclude Include="Svpwm.h" />
   </ItemGroup>

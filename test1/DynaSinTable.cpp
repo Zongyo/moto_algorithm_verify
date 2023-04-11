@@ -24,7 +24,7 @@ void DynaSinTable_lay(DynaSinTableStr_t* Str_p, int32_t* S0_p, int32_t* S_p, int
 	Str_p->s_p = s_p;
 	Str_p->n = *Str_p->FullCountIn_p % FullScale;			//calculate initial one cycle count  
 	uint16_t PERIOD = FullScale / CountPP;					//Total periods of one cycle
-	uint16_t period = (Str_p->n) / CountPP;	//count is in which period of this cycle 
+	uint16_t period = (Str_p->n) / CountPP;					//count is in which period of this cycle 
 
 	if (period < (PERIOD >> 1)) {							//left half period 
 		for (uint8_t i = 0; i < Channel; i++) {				//for all channels of sinusoid waves

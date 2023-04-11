@@ -13,8 +13,8 @@ Dynamic Sin wave Look up Table
 #ifndef DynaSinTable_H_INCLUDED
 #define DynaSinTable_H_INCLUDED
 #include <stdint.h>
-//#include <avr/io.h>
 #include <stdio.h>
+#include <math.h>
 typedef struct DynaSinTable {
 	uint16_t n;						//F16.0 count at this cycle
 	uint16_t N[3];					//F16.0 dynamic sin table current count vector
