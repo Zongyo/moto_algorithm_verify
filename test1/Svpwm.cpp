@@ -31,7 +31,7 @@ void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p,
     
     /*initialize S0_p[],TwoCos_p[]*/
     for (int c = 0; c < DynaStr_p->Channel; c++) {
-        SvpwmSinTable_TwoCos_p[c] = (int32_t)(cos(Str_p->Omega) * (1UL << 29));
+        SvpwmSinTable_TwoCos_p[c] = (int32_t)(cos(Str_p->Omega) * (1UL << 30));
         for (int j = 0; j < 3; j++) {
             SvpwmSinTable_S0_p[c * 3 + j] =
             (int32_t)(sin(Str_p->Theta_p[c] + (j - 1) * Str_p->Omega) * (1UL << 30));
@@ -50,7 +50,27 @@ uint8_t Svpwm_step(void* void_p) {
     // pwm = i_pwm : maximun is 1024 uint16/t F16
     // I*(1+s)/2 :  F16* (F2.14 +F2.14)>>1 =F17.15
     // pwm[i]=I*(1+s)/2: F16 <= (F16*(F2.14 +F2.14)>>1)>>1=(F16*(F2.14 +F2.14))>>2=F16.16
-    for (uint8_t i = 0; i < Str_p->Channel; i++)
-        Str_p->Pwm_p[i] = ((uint64_t)*Str_p->CurrentIn_p * (uint64_t)((1UL << 30) + Str_p->DynaStr_p->s_p[i])) >> (10 + 16);
+
+    int32_t sin_val;
+    for (uint8_t i = 0; i < Str_p->Channel; i++) {
+        
+        
+        sin_val = Str_p->DynaStr_p->s_p[i];
+        
+        if (sin_val > 0x3fffffff)
+            sin_val = 0x3fffffff;
+        else if (sin_val < -0x3fffffff)
+            sin_val = -0x3fffffff;
+
+        //10 for max gain 1024 , 15 for sin val Q2.30
+        Str_p->Pwm_p[i] = (((uint64_t)*Str_p->CurrentIn_p * (uint64_t)sin_val) >> (10 + 15))+ 0x8000;
+
+        uint64_t temp;
+        temp = (uint64_t)*Str_p->CurrentIn_p * (uint64_t)sin_val;
+        printf("s=%f pwm=%x \n", (float)sin_val/(1<<30) , Str_p->Pwm_p[i]);
+
+    }
+    printf("\n");
+
     return 0;
 }

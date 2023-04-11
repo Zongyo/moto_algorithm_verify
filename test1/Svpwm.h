@@ -25,14 +25,14 @@ void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p,
 #define Svpwm_ONE_PERIOD (1<<5)
 #define Svpwm_CHANNEL 2
 #define Svpwm_DIVISION_SHIFT 10 
-#define Svpwm_OMEGA  ((2*PI*Svpwm_ONE_PERIOD)/Svpwm_FULL_SCALE)
+#define Svpwm_OMEGA  (2*PI*Svpwm_ONE_PERIOD*25.0/Svpwm_FULL_SCALE)
 /* Following data should be fill after identification*/
 /* encoder count at the A phase excitation nearest next to the zero count of encoder*/
-#define Svpwm_0A_count 0.0		//(0*16384/200)
-#define Svpwm_THETA0 (2*PI*(Svpwm_0A_count/Svpwm_FULL_SCALE))
+#define Svpwm_0A_count 0.0		//(A¶µ°¾²¾)
+#define Svpwm_THETA0 (0.0 - 2*PI*Svpwm_0A_count*25/Svpwm_FULL_SCALE)
 /* encoder count at the B phase excitation after the A phase*/
-#define Svpwm_0B_count 164.0		//(1*16384/200)
-#define Svpwm_THETA1 (2*PI/4)
+#define Svpwm_0B_count 0.0		//(B¶µ°¾²¾)
+#define Svpwm_THETA1 (PI/2 - 2*PI*Svpwm_0B_count*25/Svpwm_FULL_SCALE)
 
 #ifndef TO_COMPILE_LIB_C
 
