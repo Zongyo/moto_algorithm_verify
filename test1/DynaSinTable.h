@@ -17,6 +17,7 @@ Dynamic Sin wave Look up Table
 #include <math.h>
 typedef struct DynaSinTable {
 	uint16_t n;						//F16.0 count at this cycle
+	uint16_t last_val;
 	uint16_t N[3];					//F16.0 dynamic sin table current count vector
 	uint16_t FullScale;				//Counts per Cycle 
 	uint16_t CountPerPeri;			//Count per period of look up table
