@@ -25,7 +25,7 @@ void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p,
 #define Svpwm_ONE_PERIOD (1<<5)
 #define Svpwm_CHANNEL 2
 #define Svpwm_DIVISION_SHIFT 10 
-#define Svpwm_OMEGA  (2*PI*Svpwm_ONE_PERIOD*25.0/Svpwm_FULL_SCALE)
+#define Svpwm_OMEGA  (2*PI*Svpwm_ONE_PERIOD* 25.0/Svpwm_FULL_SCALE)
 /* Following data should be fill after identification*/
 /* encoder count at the A phase excitation nearest next to the zero count of encoder*/
 #define Svpwm_0A_count 0.0		//(A¶µ°¾²¾)

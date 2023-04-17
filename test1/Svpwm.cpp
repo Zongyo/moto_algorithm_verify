@@ -63,14 +63,8 @@ uint8_t Svpwm_step(void* void_p) {
             sin_val = -0x3fffffff;
 
         //10 for max gain 1024 , 15 for sin val Q2.30
-        Str_p->Pwm_p[i] = (((uint64_t)*Str_p->CurrentIn_p * (uint64_t)sin_val) >> (10 + 15))+ 0x8000;
-
-        uint64_t temp;
-        temp = (uint64_t)*Str_p->CurrentIn_p * (uint64_t)sin_val;
-        printf("s=%f pwm=%x \n", (float)sin_val/(1<<30) , Str_p->Pwm_p[i]);
-
+        Str_p->Pwm_p[i] = (((int64_t)*Str_p->CurrentIn_p * (int64_t)sin_val) >> (10 + 15))+ 0x8000;
     }
-    printf("\n");
 
     return 0;
 }

@@ -129,52 +129,6 @@ extern uint8_t DynaSinTable_step(void* void_p) {
 			Str_p->N[0] = Str_p->N[0] - CountPP;
 		}
 	}
-	
-	/*
-
-		if (Str_p->n > Str_p->N[2] && (Str_p->n - Str_p->N[2]) <= CountPP) { //n over right limit and N[2] still can increas
-			for (uint8_t i = 0; i < Channel; i++) {
-				Str_p->S_p[i * 3 + 0] = Str_p->S_p[i * 3 + 1];
-				Str_p->S_p[i * 3 + 1] = Str_p->S_p[i * 3 + 2];
-				Str_p->S_p[i * 3 + 2] = (((int64_t)Str_p->TwoCos_p[i] * (int64_t)Str_p->S_p[i * 3 + 1]) >> 29) - Str_p->S_p[i * 3 + 0];
-			}
-			Str_p->N[0] = Str_p->N[1];
-			Str_p->N[1] = Str_p->N[2];
-			Str_p->N[2] = Str_p->N[2] + CountPP;
-
-		}
-		else if (Str_p->N[2] == FullScale && Str_p->n <= (FullScale >> 1)) { //n increas cross Full_Scale 
-
-			for (uint8_t i = 0; i < Channel; i++) {
-				Str_p->S_p[i * 3 + 0] = Str_p->S0_p[i * 3 + 1];
-				Str_p->S_p[i * 3 + 1] = Str_p->S0_p[i * 3 + 2];
-				Str_p->S_p[i * 3 + 2] = (((int64_t)Str_p->TwoCos_p[i] * (int64_t)Str_p->S_p[i * 3 + 1]) >> 29) - Str_p->S_p[i * 3 + 0];//F2.14=(F3.14*F2.14)>>3 +F2.14
-			}
-			Str_p->N[0] = 0;
-			Str_p->N[1] = Str_p->N[0] + CountPP;
-			Str_p->N[2] = Str_p->N[1] + CountPP;
-		}
-		else if (Str_p->n < Str_p->N[0] && (Str_p->N[0] - Str_p->n) <= CountPP) { // n cross left limit  but N[0] can decrease
-			for (uint8_t i = 0; i < Channel; i++) {
-				Str_p->S_p[i * 3 + 2] = Str_p->S_p[i * 3 + 1];
-				Str_p->S_p[i * 3 + 1] = Str_p->S_p[i * 3 + 0];
-				Str_p->S_p[i * 3 + 0] = ((int64_t)(Str_p->TwoCos_p[i] * (int64_t)Str_p->S_p[i * 3 + 1]) >> 29) - Str_p->S_p[i * 3 + 2];
-			}
-			Str_p->N[2] = Str_p->N[1];
-			Str_p->N[1] = Str_p->N[0];
-			Str_p->N[0] = Str_p->N[0] - CountPP;
-		}
-		else if (Str_p->N[0] == 0 && Str_p->n >= (FullScale >> 1)) { // decrease over 0 
-			for (uint8_t i = 0; i < Channel; i++) {
-				Str_p->S_p[i * 3 + 2] = Str_p->S0_p[i * 3 + 1];
-				Str_p->S_p[i * 3 + 1] = Str_p->S0_p[i * 3 + 0];
-				Str_p->S_p[i * 3 + 0] = (((int64_t)Str_p->TwoCos_p[i] * (int64_t)Str_p->S_p[i * 3 + 1]) >> 29) - Str_p->S_p[i * 3 + 2];
-			}
-			Str_p->N[2] = FullScale;
-			Str_p->N[1] = Str_p->N[2] - CountPP;
-			Str_p->N[0] = Str_p->N[1] - CountPP;
-		}
-	*/
 	//interpolation F1.31 = (F32.0*F32.0)/(F32.0*F32.0)<<31=
 	R[0] = ((Str_p->n - Str_p->N[1]) * (Str_p->n - Str_p->N[2])) >>1;
 	R[1] = -((Str_p->n - Str_p->N[0]) * (Str_p->n - Str_p->N[2]));
