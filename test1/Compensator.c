@@ -54,8 +54,8 @@ uint8_t Compensator_step(void* void_p) {
 	
 	printf("%d\n", Compen);
 	
-	Str_p->Count = Str_p->DynaStr_p->n + Compen ;								  //F32.0=F32.0 + Fx.Expon >> Expon
-	//Str_p->CountDiff = *Str_p->FullCountGoad_p - *Str_p->FullCountIn_p + Compen ; //F8.0=F32.0-F32.0+Fx.Expon>>Rxpon
+	Str_p->Count = Str_p->DynaStr_p->n + Compen ;									//F32.0=F32.0 + Fx.Expon >> Expon
+	//Str_p->CountDiff = *Str_p->FullCountGoad_p - *Str_p->FullCountIn_p + Compen ; //cmd - sensing + compen
 	return 0;
 }
 

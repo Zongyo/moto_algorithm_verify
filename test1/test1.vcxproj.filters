@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="Source.c">
       <Filter>資源檔</Filter>
     </ClCompile>
-    <ClCompile Include="DynaSinTable.cpp">
+    <ClCompile Include="DynaSinTable.c">
       <Filter>資源檔</Filter>
     </ClCompile>
-    <ClCompile Include="Svpwm.cpp">
+    <ClCompile Include="Svpwm.c">
       <Filter>資源檔</Filter>
     </ClCompile>
-    <ClCompile Include="Compensator.cpp">
+    <ClCompile Include="Compensator.c">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="IFeedBack.c">
+      <Filter>資源檔</Filter>
+    </ClCompile>
+    <ClCompile Include="LLFeedBack.c">
       <Filter>資源檔</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +42,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Compensator.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="IFeedBack.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="LLFeedBack.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

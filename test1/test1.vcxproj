@@ -141,14 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compensator.cpp" />
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="DynaSinTable.cpp" />
-    <ClCompile Include="Svpwm.cpp" />
+    <ClCompile Include="Compensator.c" />
+    <ClCompile Include="IFeedBack.c" />
+    <ClCompile Include="LLFeedBack.c" />
+    <ClCompile Include="Source.c" />
+    <ClCompile Include="DynaSinTable.c" />
+    <ClCompile Include="Svpwm.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compensator.h" />
     <ClInclude Include="DynaSinTable.h" />
+    <ClInclude Include="IFeedBack.h" />
+    <ClInclude Include="LLFeedBack.h" />
     <ClInclude Include="Svpwm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

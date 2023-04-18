@@ -31,7 +31,7 @@ int main(){
 		rad =2*M_PI*50.0*(i/16384.0);
 		val1 = int32_t(sin(rad) * 32768.0) + 0x8000;
 		val2 = int32_t(cos(rad) * 32768.0) + 0x8000;
-		
+		`
 		Svpwm_step(&Svpwm_str);
 		
 		printf("encoder:%5d rad:%4.4f real=%4d calculate=%4d \n", i, rad,val1, (int32_t)Svpwm_str.Pwm_p[0]);
