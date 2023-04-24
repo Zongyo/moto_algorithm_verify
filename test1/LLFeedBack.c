@@ -19,7 +19,7 @@ void LLFeedBack_lay(LLFeedBackStr_t* Str_p) {
 	Str_p->DiffCountAcc_p = &Str_p->DiffCountAcc;
 }
 
-extern uint8_t LLFeedBack_step(void* void_p) {
+uint8_t LLFeedBack_step(void* void_p) {
 	LLFeedBackStr_t* Str_p = (LLFeedBackStr_t*)void_p;
 	int16_t LeadLag;
 	Str_p->DiffCountAcc =( (Str_p->Lambda * Str_p->DiffCountAcc) >> Str_p->Lambda_Expon )+ *Str_p->DiffCountIn_p;//F16.0=F0.16*F16.0+F8.0=(F16*F16)>>16 +F8.0

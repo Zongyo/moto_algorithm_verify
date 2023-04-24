@@ -53,5 +53,4 @@ extern IFeedBackStr_t IFeedBack_str;
 	    IFeedBack_lay(&IFeedBack_str);\
 }
 
-extern uint8_t IFeedBack_step(void* void_p);
 #endif
