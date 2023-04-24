@@ -18,7 +18,7 @@ typedef struct Svpwm {
 	DynaSinTableStr_t* DynaStr_p;
 }SvpwmStr_t;
 
-void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p, double* Theta_p);
+
 /* Space vector PWM */
 //步進馬達電子角要轉25圈才能對位對到0度
 #define Svpwm_FULL_SCALE (1<<13)
@@ -34,8 +34,8 @@ void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p,
 #define Svpwm_0B_count 0.0		//(B項偏移)
 #define Svpwm_THETA1 (PI/2 - 2*PI*Svpwm_0B_count*25/Svpwm_FULL_SCALE)
 
-#ifndef TO_COMPILE_LIB_C
 
+void Svpwm_lay(SvpwmStr_t* Str_p, DynaSinTableStr_t* DynaStr_p, uint16_t* Pwm_p, double* Theta_p);
 uint8_t Svpwm_step(void* void_p);
 
 extern DynaSinTableStr_t SvpwmSinTable_str ;
@@ -51,10 +51,5 @@ extern SvpwmStr_t Svpwm_str;
 		Svpwm_lay(&Svpwm_str,&SvpwmSinTable_str,SvpwmSinTable_Pwm_p,SvpwmSinTable_Theta_p);\
 		DynaSinTable_lay(&SvpwmSinTable_str,SvpwmSinTable_S0_p,SvpwmSinTable_S_p,SvpwmSinTable_TwoCos_p, SvpwmSinTable_s_p);\
 	}
-
-#else
-extern uint8_t Svpwm_step(void* void_p);
-
-#endif //TO_COMPILE_LIB_C
 
 #endif //Svpwm_H_INCLUDED

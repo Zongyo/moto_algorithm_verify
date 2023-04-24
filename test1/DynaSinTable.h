@@ -35,11 +35,7 @@ typedef struct DynaSinTable {
 #define PI 3.14159265358979323846
 
 void DynaSinTable_lay(DynaSinTableStr_t* Str_p, int32_t* S0_p, int32_t* S_p, int32_t* TwoCos_p, int32_t* s_p);
-
-#ifndef TO_COMPILE_LIB_C 
 uint8_t DynaSinTable_step(void* void_p);
-#else 
-extern uint8_t DynaSinTable_step(void* void_p);
-#endif //TO_COMPILE_LIB_C
+
 
 #endif //DynaSinTable_H_INCLUDED

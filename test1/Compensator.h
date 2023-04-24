@@ -57,10 +57,11 @@ extern uint32_t Compensator_A_p[];
 extern double CompSinTable_Theta_p[];
 extern DynaSinTableStr_t CompSinTable_str;
 extern CompensatorStr_t Compensator_str;
-#endif //TO_COMPILE_LIB_C
+
 
 #define Compensator_LAY(){\
 	Compensator_lay(&Compensator_str,&CompSinTable_str,Compensator_A_p,CompSinTable_s_p,CompSinTable_Theta_p);\
     DynaSinTable_lay(&CompSinTable_str,CompSinTable_S0_p,CompSinTable_S_p,CompSinTable_TwoCos_p, CompSinTable_s_p);\
 }
 
+#endif 
