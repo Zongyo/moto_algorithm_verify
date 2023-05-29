@@ -90,13 +90,10 @@ int16_t SinTable(SinTableStr_t* Str_p, uint16_t Deg) {
     if (au > Quat)
         au = -au + Half;   //image angle for mirror at quater position(-theta +180)
 
-
-    printf("a=%d ", au);
     //角度<= 1/16 圓
     if (au <= 16 << 8) {
         /*sina(F2.14)=a(F8.8) * sin16u(F2.14)>>(8+4)*/
         S = (((int32_t)au) * ((int32_t)Str_p->sin16u)) >> 12; 
-        printf("1 ");
     }
     //角度介於 1/16 到 3/16圓
     else if (au > (16 << 8) && au < (48 << 8)) {
@@ -106,22 +103,14 @@ int16_t SinTable(SinTableStr_t* Str_p, uint16_t Deg) {
         S  = ((((((int32_t)au - (32 << 8)) * ((int32_t)au - (48 << 8))) >> 16) * ((int32_t)Str_p->sin16u)) -
               (((((int32_t)au - (16 << 8)) * ((int32_t)au - (48 << 8))) >> 15) * ((int32_t)Str_p->sin32u)) +
               (((((int32_t)au - (16 << 8)) * ((int32_t)au - (32 << 8))) >> 16) * ((int32_t)Str_p->sin48u)))>> 9 ;
-
-        //printf("au=%d tmp=%ld ",au, tmp);
- 
-        printf("2 ");
     }
 
     else {
         /*sina(F2.14) = (((a(F8.8)-64<<8)(a(F8.8)-64<<8)>>16) *sin48u(F2.14)
                 + (a(F8.8)-48<<8)(a(F8.8)-80<<8)>>2)>>8 
-                  =(((a-64)(a-64)*sin(48u)+ (a-48)(a-80))*sin(64u))>>8
-                */
-
+                  =(((a-64)(a-64)*sin(48u)+ (a-48)(a-80))*sin(64u))>>8 */
         S =  ((((int32_t)au - (64 << 8)) * ((int32_t)au - (64 << 8)) >> 14) * (int32_t)Str_p->sin48u -
-               ((int32_t)au - (48 << 8)) * ((int32_t)au - (80 << 8)))  >> 10;                         //>>0 for sin(64)=2^14 2^14>>15 = >>1
-
-        printf("3 ");
+               ((int32_t)au - (48 << 8)) * ((int32_t)au - (80 << 8)))  >> 10;//>>0 for sin(64)=2^14 2^14>>15 = >>1
     }
 
     if (zone == 1)

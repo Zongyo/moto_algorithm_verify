@@ -141,19 +141,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Compensator.c" />
-    <ClCompile Include="IFeedBack.c" />
-    <ClCompile Include="LLFeedBack.c" />
+    <ClCompile Include="Compensator_2.c" />
+    <ClCompile Include="IntPoPwm.c" />
     <ClCompile Include="Source.c" />
-    <ClCompile Include="DynaSinTable.c" />
-    <ClCompile Include="Svpwm.c" />
+    <ClCompile Include="SinTable.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Compensator.h" />
-    <ClInclude Include="DynaSinTable.h" />
-    <ClInclude Include="IFeedBack.h" />
-    <ClInclude Include="LLFeedBack.h" />
-    <ClInclude Include="Svpwm.h" />
+    <ClInclude Include="Compenastor_2.h" />
+    <ClInclude Include="IntPoPwm_cfg_2c.h" />
+    <ClInclude Include="IntPoPwm.h" />
+    <ClInclude Include="IntPoPwm_cfg_3c.h" />
+    <ClInclude Include="SinTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
