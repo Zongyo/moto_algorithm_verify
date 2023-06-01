@@ -77,13 +77,13 @@ typedef struct Compensator {
     int16_t* Sin_p;  // Q2.14 sin values of all channels at the input count
     uint16_t* Omega_p;  //((F12.4)>>OmegaExp) Deg/count
     uint16_t* Alpha_p;  // Q16 phase angle in count
-    uint8_t* NextTask_p;
     SinTableStr_t* SinTableStr_p;
     /* Input pointer */
     uint32_t* FullCountIn_p;    // Q32.0 address of multi cycle encoder
                                 // count before compensated
     uint32_t* FullCountGoad_p;  // Q32.0 address of position goad of
                                          // multi cycle encoder count
+    uint8_t* NextTask_p;
 } CompensatorStr_t;
 
 void Compensator_lay(CompensatorStr_t* Str_p, SinTableStr_t* SinStr_p,

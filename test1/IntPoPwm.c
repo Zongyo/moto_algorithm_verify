@@ -27,13 +27,6 @@ inline int lagrange_polynomial(int weight_1, int weight_2, int weight_3, int val
 }
 
 void IntPoPwm_lay(IntPoPwmStr_t* Str_p, int16_t* PwmOut_p, int16_t* Table_p, uint8_t* NextTask_p) {
-	IntPoPwm_str.NextNum = IntPoPwm_NEXTNUM; 
-	IntPoPwm_str.Chann = IntPoPwm_CHANN; 
-	IntPoPwm_str.OmegaMan = IntPoPwm_OMEGAMAN; 
-	IntPoPwm_str.OmegaExp = IntPoPwm_OMEGAEXP; 
-	IntPoPwm_str.Alpha = IntPoPwm_ALPHA; 
-	IntPoPwm_str.MdWt = IntPoPwm_MCOMP;
-	Str_p->NextTask_p = NextTask_p;
 	Str_p->NextTask_p = NextTask_p;
 	Str_p->PwmOut_p = PwmOut_p;//net s array
 	Str_p->Table_p = Table_p;
@@ -54,7 +47,8 @@ uint8_t IntPoPwm_step(void* void_p) {
 	int32_t Wtau0, Wtau1, Temp;
 	uint8_t Phase0, Phase1;
 
-	Au = ((((uint32_t)*Str_p->CountIn_p - Str_p->Alpha) * 21) % (Str_p->Chann << 14));
+	//Au = ((((uint32_t)*Str_p->CountIn_p - Str_p->Alpha) * 21) % (Str_p->Chann << 14));
+	Au = (((uint32_t)*Str_p->CountIn_p * 21) % (Str_p->Chann << 14));
 	Phase0 = Au >> 13;//Get the MSB 3bits as its phase
 	Phase1 = Phase0 + 1;
 	if (Phase1 == Str_p->Chann * 2)
@@ -63,12 +57,12 @@ uint8_t IntPoPwm_step(void* void_p) {
 	Resi = Au - ((uint16_t)Phase0 << 13);
 	
 	Temp = ((Resi*(Resi- FULL_SECTOR))>>16)*(Str_p->MdWt) >> 8;
-	//for y-axis
+	//for y-axis or 60deg
 	Wtau0 = (((Resi- FULL_SECTOR)*(Resi- HALF_SECTOR))>>12)-Temp;
-	//for x-axis
+	//for x-axis or 0deg
 	Wtau1 = ((Resi*(Resi- HALF_SECTOR))>>12) - Temp;
 
-	//printf("%6d,%6d\n", Wtau1, Wtau0);
+
 	/*
 	int w_1 = lagrange_weighting(0, 4096, 8192, Resi, expon);
 	int w_2 = lagrange_weighting(4096, 8192, 0, Resi, expon);
@@ -78,11 +72,13 @@ uint8_t IntPoPwm_step(void* void_p) {
 	*/
 
 	for (uint8_t ch = 0; ch < Str_p->Chann; ch++) {
-		Str_p->PwmOut_p[ch] = ((*Str_p->CurrentIn_p) * (((Str_p->Table_p[Phase0 * 3 + ch] * Wtau0)>>13) + ((Str_p->Table_p[Phase1 * 3 + ch] * Wtau1)>>13))>>10);
+		Str_p->PwmOut_p[ch] = ((*Str_p->CurrentIn_p) * 
+			(((Str_p->Table_p[Phase0 * 3 + ch] * Wtau0)>>13) + 
+			 ((Str_p->Table_p[Phase1 * 3 + ch] * Wtau1)>>13))>>10);
 	}
-	
-	printf("%d,%d,%d\n", Str_p->PwmOut_p[0], Str_p->PwmOut_p[1],Str_p->PwmOut_p[2]);
-
+	uint16_t a =IntPoPwm_PwmOut_p[0];
+	uint16_t b = IntPoPwm_PwmOut_p[1];
+	uint16_t c = IntPoPwm_PwmOut_p[2];
 	/*
 		for (uint8_t i = 0; i < Str_p->NextNum ; i++)
 		TRIG_NEXT_TASK(Str_p->NextTask_p[i]);

@@ -44,25 +44,25 @@ extern uint16_t IntPoPwm_PwmOut_p[];
 extern int16_t IntPoPwm_Table_p[];
 extern uint8_t IntPoPwm_NextTask_p[];
 extern IntPoPwmStr_t IntPoPwm_str;
-/*
-#define IntPoPwm_CFG_INI{\
-	IntPoPwm_str.NextNum=IntPoPwm_NEXTNUM;\
-	IntPoPwm_str.Chann=IntPoPwm_CHANN;\
-	IntPoPwm_str.OmegaMan=IntPoPwm_OMEGAMAN;\
-	IntPoPwm_str.OmegaExp=IntPoPwm_OMEGAEXP;\
-	IntPoPwm_str.Alpha=IntPoPwm_ALPHA;\
-	IntPoPwm_str.MdWt=IntPoPwm_MdWt;\
-}
-//TO_COMPILE_LIB_C
-#define IntPoPwm_LAY{\
-	IntPoPwm_CFG_INI;\
-	IntPoPwm_lay(&IntPoPwm_str,IntPoPwm_PwmOut_p,IntPoPwm_NextTask_p);\
-	SYSPIPELINE_reg(IntPoPwm_step,&IntPoPwm_str,&IntPoPwm_str.TaskId,"IntPoPwm");\
+
+#define IntPoPwm_CFG_INI {						\
+	IntPoPwm_str.NextNum=IntPoPwm_NEXTNUM;		\
+	IntPoPwm_str.Chann=IntPoPwm_CHANN;			\
+	IntPoPwm_str.OmegaMan=IntPoPwm_OMEGAMAN;	\
+	IntPoPwm_str.OmegaExp=IntPoPwm_OMEGAEXP;	\
+	IntPoPwm_str.Alpha=IntPoPwm_ALPHA;			\
+	IntPoPwm_str.MdWt=IntPoPwm_MCOMP;			\
 }
 
-*/
+#define IntPoPwm_LAY() {								\
+	IntPoPwm_CFG_INI;								\
+	IntPoPwm_lay(&IntPoPwm_str, IntPoPwm_PwmOut_p,	\
+	IntPoPwm_Table_p, IntPoPwm_NextTask_p);			\
+}
+
+
+
+//SYSPIPELINE_reg(IntPoPwm_step, &IntPoPwm_str, &IntPoPwm_str.TaskId, "IntPoPwm");
 
 #endif 
 //IntPoPwm_H_INCLUDED
-
-
