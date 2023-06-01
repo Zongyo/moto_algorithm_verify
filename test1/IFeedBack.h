@@ -19,8 +19,8 @@ typedef struct IFeedBack {
     //output pointers  
     uint16_t* CurrentOut_p;//F16  address of Current output 
     //input pointers
-    uint16_t* DiffCountAccIn_p; //F16.0 address of one cycle encoder count
-    int8_t* DiffCountIn_p; //F8.0 address of Cmd Sense Count Difference
+    int16_t DiffCountAcc; //F16.0 address of one cycle encoder count
+    int16_t* DiffCountIn_p; //F16.0 address of Cmd Sense Count Difference
 }IFeedBackStr_t;
 
 /* Current FeedbackControled */
