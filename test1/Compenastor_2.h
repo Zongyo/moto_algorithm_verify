@@ -41,6 +41,8 @@ Block
 #define Comp_ALPHA3 (311)
 #define Comp_ALPHA4 (280)
 
+
+#define MASK 16383
 #include <stdint.h>
 #include "SinTable.h"
 
@@ -67,6 +69,7 @@ typedef struct Compensator {
     int16_t DC_offset;  // Fx.AmpExp DC offset
     uint8_t AmpExp;  // Q8.0 group exponent of offset bias and sinusoid waves error
     uint8_t OmegaExp;   // Q8.0 group exponent Omega
+    uint16_t mask;
     uint16_t Count;     // Q14.2 encoder count after compensation
     int16_t CountDiff;  // Q8.0 difference of goad count and sensed count
     /*Output pointer*/
