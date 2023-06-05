@@ -35,6 +35,10 @@
 
 #define TO_COMPILE_LIB_C
 #include "Compenastor_2.h"
+#include <stdio.h>
+#define HALF_CYCLE 8192
+#define FULL_CYCLE 16384
+
 
 uint16_t Compensator_Amp_p[Comp_CHANN] = { 0 };    // Q7.9
 int16_t Compensator_Sin_p[Comp_CHANN] = { 0 };     // Q2.14
@@ -53,6 +57,7 @@ void Compensator_lay(CompensatorStr_t* Str_p, SinTableStr_t* SinTable_str,
     Str_p->Alpha_p = Alpha_p;                // net Alpha array
     Str_p->Omega_p = Omega_p;                // net Omega array
     Str_p->SinTableStr_p = SinTable_str;    // net SinTable_str array
+    Str_p->mask = MASK;
     // Str_p->NextTask_p = NextTask_p;
 }
 
@@ -76,7 +81,18 @@ uint8_t Compensator_step(void* void_p) {
     Compen = Compen >> Comp_AMPEXP;
 
     Str_p->Count = *Str_p->FullCountIn_p + Compen ;
+    Str_p->Count = Str_p->Count & Str_p->mask;
+
     Str_p->CountDiff = *Str_p->FullCountGoad_p - Str_p->Count;
+    if (Str_p->CountDiff> HALF_CYCLE)
+    {
+        Str_p->CountDiff -= FULL_CYCLE;
+    }
+    else if (Str_p->CountDiff < -HALF_CYCLE)
+    {
+        Str_p->CountDiff += FULL_CYCLE;
+    }
+
     // for (uint8_t i = 0; i < str_p->NextTaskNum, i++)
     // TRIG_NEXT_TASK(Str_p->NextTask_p[i]);
     return 0;

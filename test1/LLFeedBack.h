@@ -26,14 +26,16 @@ typedef struct LLFeedBack {
 // machanic and electronic angle ration 
 #define M_E_RATIAL 7
 // 90 degree = FULL_SCALE/M_E_RATIAL/4 count = 2^14/7/4=585.14 count, 585.14*2^6=37449 count in Q6
-#define MAX_LEAD_LAG_COUNT 37449
+#define MAX_LEAD_LAG_COUNT 585
 #define MAX_LEAD_LAG_EXPON 6
 // lambda 0.95 F0.16 0.95*2^16=62259
-#define LAMBDA_MANTISA 62259        //0.95 forget_fector
+#define LAMBDA_MANTISA 56000        //0.95 forget_fector
 #define LAMBDA_EXPON 16 
 // K_I 0~255 F0.9=F8.0>>9 
-#define LLK_I_MANTISA 127
+#define LLK_I_MANTISA 200
 #define LLK_I_EXPON 9
+
+#define SATURATE MAX_LEAD_LAG_COUNT*(1<<LLK_I_EXPON)/LLK_I_MANTISA
 
 void LLFeedBack_lay(LLFeedBackStr_t* Str_p);
 uint8_t LLFeedBack_step(void* void_p);
